@@ -4,7 +4,7 @@ const config = require("./config")
 const db =  new sql3.Database(config.db.name)
 
 const schemas = [
-  `CREATE TABLE lost_reports(
+  `CREATE TABLE IF NOT EXISTS lost_reports(
     address TEXT,
     species TEXT,
     image TEXT,
@@ -17,7 +17,7 @@ const schemas = [
 ]
 
 db.serialize(function() {
-  db.run("DROP TABLE IF EXISTS lost_reports")
+  // db.run("DROP TABLE IF EXISTS lost_reports")
   for (var i = schemas.length - 1; i >= 0; i--) {
     db.run(schemas[i])
   }

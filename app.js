@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const server = app.listen(port);
 
-const db = require("./config/db_conf");
+const db = require("./src/db.js");
 
 let socketio = require('socket.io');
 let io = socketio(server);
@@ -24,10 +24,10 @@ io.on('connection', socket => {
    console.log('Connections: ' + cons);
 
    // Send Reports
-   // db.getAllReports((reports) => {
-   //    console.log(reports);
-   //    socket.emit('Reports', reports)
-   // });
+   db.getLostReports((reports) => {
+      console.log(reports);
+      socket.emit('Lost Reports', reports)
+   });
 
    io.on('disconnect', () => {
       cons--;
