@@ -4,6 +4,11 @@
   margin-top: 70px;
 }
 
+.logoDog {
+  float: right;
+  height: 100px;
+}
+
 .pull-left li {
   float: left;
 }
