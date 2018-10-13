@@ -1,0 +1,9 @@
+extends includes/app.pug
+
+block content
+  h1 Search
+  form(action="/submit" class="report")
+    input(type="text" class="form-control" name="location" placeholder="Location")
+    input(type="text" class="form-control" name="species" placeholder="Species")
+    input(type="text" class="form-control" name="name" placeholder="Name")
+    input(type="submit" class="form-control" placeholder="Submit")
