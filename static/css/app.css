@@ -18,10 +18,6 @@ ul, li, a {
   display: none; 
 }
 
-.content { 
-  margin-left: 4rem;
-}
-
 .content-title {
   font-size: 3rem;
 }
