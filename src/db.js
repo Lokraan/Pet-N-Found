@@ -1,70 +1,118 @@
-
+const { OpenStreetMapProvider } = require('leaflet-geosearch')
 const { db } = require("../config/db_conf")
 const { to } = require("await-to-js")
 
 module.exports = {
   helloWorld() {
     console.log("Hello World")
+  },
+
+  addReport(address, species, image, name, description, email, phone) {
+    const query = `
+      INSERT INTO lost_reports
+      (address, species, image, name, description, email, phone)
+      VALUES (?, ?, ?, ?, ?, ?, ?)`
+
+     db.run(query, 
+       [address, species, image, name, description, email, phone],
+       (err, res) => {
+        if(err)
+          throw err
+      }
+    )
+  },
+
+  getLostReports(callback) {
+    const query = "SELECT * FROM lost_reports"
+    
+    db.all(query, (err, res) => {
+      if(err) 
+        throw err
+
+      callback(res)
+    })
+  },
+
+  getLostReportsWithSpecies(species, callback) {
+    const query = "SELECT * FROM lost_reports WHERE species = ?"
+
+    db.all(query, [species], (err, res) => {
+      if(err) 
+        throw err
+
+      callback(res)
+    })
+  },
+
+  getLostReportsWithName(name, callback) {
+    const query = "SELECT * FROM lost_reports WHERE name = ?"
+
+    db.all(query, [species], (err, res) => {
+      if(err) 
+        throw err
+
+      callback(res)
+    })
+  },
+
+  async filterByDistanceFromLocation(rows, location, radius) {
+    const res = []
+
+    // setup
+    const provider = new OpenStreetMapProvider()
+    let results = await provider.search({ query: location })
+    const lat1 = results.x
+    const lat2 = results.y
+
+    rows.forEach((row) => {
+      results = await(provider.search({ query: row.address }))
+      if(getDistanceFromLatLonInKm(lat1, lon1, results.x, results.y)) {
+        res.push(row)
+      }
+    })
+
+    return res
+  },
+
+  async getLostReportsInRadius(baseLocation, radius) {
+    const rows = getLostReports(async (rows) => {
+      return await filterByDistanceFromLocation(rows, baseLocation, radius)
+    })
+
+    return rows
+  },
+
+  async getLostReportsWithSpeciesInRadius(species, baseLocation, radius) {
+    const rows = getLostReportsWithSpecies(species, async (rows) => {
+      return await filterByDistanceFromLocation(rows, baseLocation, radius)
+    })
+
+    return rows
+  },
+
+  async getLostReportsWithNameInRadius(name, baseLocation, radius) {
+    const rows = getLostReportsWithName(name, async (rows) => {
+      return await filterByDistanceFromLocation(rows, baseLocation, radius)
+    })
+
+    return rows
+  },
+
+  getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+  },
+
+  deg2rad(deg) {
+    return deg * (Math.PI/180)
   }
-  // getBlogPosts(limit) {
-  //   const query = {
-  //     text: `SELECT * FROM blogs ORDER BY timestamp DESC LIMIT $1`,
-  //     values: [limit]
-  //   }
-
-  //   const [err, res] = await to(pool.query(query))
-  //   if(err) throw new Error("Failed to get blog posts.")
-
-  //   return res.rows
-  // },
-
-  // async getBlogPost() {
-  //   const query = {
-  //     text: "SELECT * FROM blogs WHERE id = $1",
-  //     values: [id]
-  //   }
-
-  //   const [err, res] = await to(pool.query(query))
-  //   if(err) throw new Error("Failed to get blog post.")
-
-
-  //   return res.rows[0] || null;
-  // },
-
-  // async addBlogPost(url, title, content, description) {
-  //   const timestamp = Math.floor((new Date()).getTime() / 1000)
-  //   const views = 0
-  //   const query = {
-  //     text: "INSERT INTO blogs VALUES($1, $2, $3, $4, $5, $6)",
-  //     values: [url, title, content, description, timestamp, views] 
-  //   }
-
-  //   const [err, res] = await to(pool.query(query))
-  //   if(err) throw new Error("Failed to add blog post.")
-
-  // },
-
-  // async getBlogUrls() {
-  //   const query = {
-  //     text: "SELECT url FROM blogs",
-  //     rowMode: "array"
-  //   }
-
-  //   const [err, res] = await to(pool.query(query))
-  //   if(err) throw new Error("Failed to add blog post.")
-
-  //   return [].concat.apply([], res.rows)
-  // },
-
-  // async getBlogByUrl(url) { 
-  //   const query = {
-  //     text: "SELECT * FROM blogs WHERE url = $1",
-  //     values: [url]
-  //   }
-
-  //   const [err, res] = await to(pool.query(query))
-  //   if(err) throw new Error("Failed to add blog post.")
-
-  //   return res.rows[0] || null
-  // }
 }

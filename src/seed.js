@@ -1,4 +1,3 @@
-
 /**
 *
 * Used to seed data for database and migrations.
@@ -7,23 +6,40 @@
 
 const db = require("./db")
 
-const blogs = [
+const reports = [
   {
-    url: "first",
-    title: "first",
-    content: "first",
-    description: "first post"
+    address: "North Korea",
+    species: "dog",
+    image: "first",
+    name: "cata cat",
+    description: "cata cat loves cats",
+    email: "catlover@gmail.com",
+    phone: "512-569-4280"
   },
   {
-    url: "second",
-    title: "second",
-    content: "second",
-    description: "second post second post second post second post second post second post"
+    address: "North Korea",
+    species: "dog",
+    image: "first",
+    name: "cata cat",
+    description: "Dog cata cat loves cats",
+    email: "doglover@gmail.com",
+    phone: "512-569-4281"
   }
 ]
 
 // const promises = blogs.map(
 //   (blog) => db.addBlogPost(blog.url, blog.title, blog.content, blog.description))
+
+reports.forEach((report) => {
+  db.addReport(
+    report.address, report.species, report.image, report.name,
+    report.description, report.email, report.phone
+  )
+})
+
+const res = db.getLostReports((data) => {
+  return data
+})
 
 // Promise.all(promises)
 //   .then(() => console.log("Succesful seeding!"))
