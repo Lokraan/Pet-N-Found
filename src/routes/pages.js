@@ -15,4 +15,11 @@ router.get("/report", (req, res) => {
   res.render("report")
 })
 
+router.get("/foundReport", (req, res) => {
+  res.render("foundReport")
+})
+
+router.get("/search", (req, res) => {
+  res.render("search")
+})
 module.exports = router
