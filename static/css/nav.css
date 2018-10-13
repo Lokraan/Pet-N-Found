@@ -1,6 +1,7 @@
 
 .menu ul {
   list-style: none;
+  margin-top: 70px;
 }
 
 .pull-left li {
@@ -29,16 +30,15 @@
   text-decoration: none;
 }
 
-.menu a::before {
+.menu a::before { /*animation control*/
   content: "";
   display: block;
   width: 0;
-  height: 70px;
   background: black;
   transition: width .5s;
 }
 
-.menu a:hover::before {
+.menu a:hover::before { /*animation control*/
   width: 100%;
 } 
 
