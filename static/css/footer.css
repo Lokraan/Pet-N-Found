@@ -2,18 +2,20 @@
 .footer {
   width: 100%;
   margin-left: 0rem;
-  margin-top: 15rem;
+  margin-top: 5rem;
+  height: 100px;
+  background-color: #17b563ff;
 }
 
 .footer a {
-  color: grey;
+  color: yellow;
 }
 
 .footer a:hover {
-  color: grey;
+  color: black;
 }
 
 .menu a::before {
-  background: grey;
+  color: yellow;
 }
 
