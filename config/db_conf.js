@@ -1,15 +1,21 @@
 
-const { Pool, Client } = require("pg")
+const sql3 = require("sqlite3").verbose()
 const config = require("./config")
 
-const pg_conf = {
-  user: config.db.username,
-  host: config.db.host,
-  database: config.db.database,
-  password: config.db.password
-}
+const db =  new sql3.Database(config.db.name)
+
+const schemas = [
+  `CREATE TABLE IF NOT EXISTS not_table(
+    info TEXT
+  )`,
+]
+
+db.serialize(function() {
+  for (var i = schemas.length - 1; i >= 0; i--) {
+    db.run(schemas[i])
+  }
+})
 
 module.exports = {
-  pool: new Pool(pg_conf),
-  client: new Client(pg_conf)
+  db: db
 }

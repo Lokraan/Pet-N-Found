@@ -22,9 +22,9 @@ const blogs = [
   }
 ]
 
-const promises = blogs.map(
-  (blog) => db.addBlogPost(blog.url, blog.title, blog.content, blog.description))
+// const promises = blogs.map(
+//   (blog) => db.addBlogPost(blog.url, blog.title, blog.content, blog.description))
 
-Promise.all(promises)
-  .then(() => console.log("Succesful seeding!"))
-  .catch(err => console.log(err.stack))
+// Promise.all(promises)
+//   .then(() => console.log("Succesful seeding!"))
+//   .catch(err => console.log(err.stack))

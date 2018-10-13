@@ -4,11 +4,8 @@ module.exports = {
     port: 3000
   },
   db: {
-    host: "localhost",
-    username: "website",
-    password: "website",
-    database: "website_dev",
-    schema: `CREATE TABLE IF NOT EXISTS blogs(
+    name: "website",
+    schema: `CREATE TABLE IF NOT EXISTS dabs(
         url TEXT PRIMARY KEY,
         title TEXT,
         content TEXT,
@@ -17,6 +14,5 @@ module.exports = {
         views INTEGER
       )`,
     drop: "DROP TABLE IF EXISTS blogs"
-  },
-  graphiql: true
+  }
 }
