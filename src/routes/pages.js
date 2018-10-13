@@ -12,14 +12,17 @@ router.get("/map", (req, res) => {
 })
 
 router.get("/report", (req, res) => {
-  res.render("report")
+  res.render("report", {title: "Pet n Found"})
 })
 
 router.get("/foundReport", (req, res) => {
-  res.render("foundReport")
+  res.render("foundReport", {title: "Pet n Found"})
 })
 
 router.get("/search", (req, res) => {
-  res.render("search")
+  res.render("search", {title: "Pet n Found"})
+})
+router.get("/reportToggle", (req, res) => {
+  res.render("reportToggle", {title: "Pet n Found"})
 })
 module.exports = router
