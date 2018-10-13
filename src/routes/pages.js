@@ -12,7 +12,7 @@ router.get("/map", (req, res) => {
 })
 
 router.get("/report", (req, res) => {
-  res.render("report")
+  res.render("report", {title: "Pet n Found"})
 })
 
 router.get("/submit", (req, res) => {
