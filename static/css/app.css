@@ -1,0 +1,38 @@
+/* This file is for your main application css. */
+
+* {
+  font-family: "Source Code Pro", monospace;
+}
+
+body, form, ul, table {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+ul, li, a {
+  color: inherit;
+}
+
+/* Phoenix flash messages */
+.alert:empty { 
+  display: none; 
+}
+
+.content { 
+  margin-left: 4rem;
+}
+
+.content-title {
+  font-size: 3rem;
+}
+
+.content-text {
+  font-size: 1.75rem;
+}
+
+@media (min-width: 50%) {
+  .container {
+    min-height: 100%;
+    max-width: 75%;
+  }
+}

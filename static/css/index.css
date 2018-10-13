@@ -1,0 +1,43 @@
+
+* {
+  font-family: "Source Code Pro", monospace;
+}
+
+.latest-posts {
+  font-size: 3rem;
+}
+
+.blogs {
+  margin-top: 5rem;
+  width: 100%;
+  min-height: 200px;
+}
+
+.card-text {
+  margin-top: 1rem;
+}
+
+.card-subtitle {
+  margin-top: 0.25rem;
+}
+
+.post {
+  width: 25rem;
+  height: 15rem;
+  float: left;
+  margin-right: 2rem;
+  border-bottom: solid 1px black;
+}
+
+.post a {
+  color: #5596e0;
+  text-decoration: none;
+  border-bottom: dashed 1px grey;
+  transition-duration: 0.5s;
+}
+
+.post a:hover {
+  color: #33a6e0;
+  border-color: black;
+  transition-duration: 0.5s;
+}

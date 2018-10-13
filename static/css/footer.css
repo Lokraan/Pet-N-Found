@@ -1,0 +1,19 @@
+
+.footer {
+  width: 100%;
+  margin-left: 0rem;
+  margin-top: 15rem;
+}
+
+.footer a {
+  color: grey;
+}
+
+.footer a:hover {
+  color: grey;
+}
+
+.menu a::before {
+  background: grey;
+}
+
