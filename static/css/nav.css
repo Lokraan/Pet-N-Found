@@ -16,7 +16,7 @@
 }
 
 .menu-link {
-  color: black;
+  color: yellow;
   font-size: 1.8rem;
   font-weight: bold;
 }
@@ -33,7 +33,7 @@
   content: "";
   display: block;
   width: 0;
-  height: 2px;
+  height: 70px;
   background: black;
   transition: width .5s;
 }
