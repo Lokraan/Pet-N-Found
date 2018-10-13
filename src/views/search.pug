@@ -1,0 +1,18 @@
+extends include/app.pug
+
+block content
+  link(rel="stylesheet", href="/static/css/search.css") 
+
+  div(class="reports")
+  each report in reports
+    div(class="card" style="width: 18rem;")
+      div(img class="card-img-top" src="/static/images/reports/" + report.image alt="Card image cap")
+      div(class="card-body")
+        div(h5 class="card-title")=report.name
+        h6(class="card-subtitle mb-2 text-muted")=report.species
+        p(class="card-text")=report.description
+        h6(class="card-subtitle mb-2 text-muted") Contact
+        p(class="card-text")=report.phone
+        p(class="card-text")=report.email
+      </div>
+    </div>
