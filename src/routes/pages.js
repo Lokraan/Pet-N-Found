@@ -12,4 +12,8 @@ router.get("/map", (req, res) => {
   res.render("map", {title: "Pet n Found"})
 })
 
+router.get("/report", (req, res) => {
+  res.render("report")
+})
+
 module.exports = router
