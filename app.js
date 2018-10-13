@@ -21,15 +21,15 @@ console.log("Listening on " + port);
 let cons = 0;
 io.on('connection', socket => {
    cons++;
-   console.log('Connections: ' + cons);
+   console.log('Client Connected (' + cons + ')');
 
    // Send Reports
    db.getLostReports((reports) => {
-      console.log(reports);
-      socket.emit('Lost Reports', reports)
+      socket.emit('Lost Reports', reports ? reports : []);
    });
 
    io.on('disconnect', () => {
+      console.log('Client Disconnected (' + cons + ')');
       cons--;
    });
 });

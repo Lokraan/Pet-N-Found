@@ -8,7 +8,7 @@ const db = require("./db")
 
 const reports = [
   {
-    address: "North Korea",
+    address: "Round Rock, TX",
     species: "dog",
     image: "first",
     name: "cata cat",
@@ -17,7 +17,16 @@ const reports = [
     phone: "512-569-4280"
   },
   {
-    address: "North Korea",
+    address: "Austin",
+    species: "dog",
+    image: "first",
+    name: "cata cat",
+    description: "Dog cata cat loves cats",
+    email: "doglover@gmail.com",
+    phone: "512-569-4281"
+  },
+  {
+    address: "Pflugerville, Texas",
     species: "dog",
     image: "first",
     name: "cata cat",
@@ -38,7 +47,7 @@ reports.forEach((report) => {
 })
 
 const res = db.getLostReports((data) => {
-  return data
+  console.log(data)
 })
 
 // Promise.all(promises)

@@ -6,6 +6,8 @@ const db =  new sql3.Database(config.db.name)
 const schemas = [
   `CREATE TABLE IF NOT EXISTS lost_reports(
     address TEXT,
+    lat DOUBLE,
+    lon DOUBLE,
     species TEXT,
     image TEXT,
     name TEXT,
