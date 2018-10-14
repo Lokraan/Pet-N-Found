@@ -22,7 +22,7 @@ $(document).ready(() => {
    } else {
       petmap.setView([lat, lon], zoom);
    }
-   // console.log([lat, lon]); // Bug: variables 'lat' and 'lon' do not hold their values set in the getCurrentPosition callback, this log prints [50, -100]
+   // console.log([lat, lon]); // Bug: variables 'lat' and 'lon' do not hold their values set in the getCurrentPosition callback, this log prints [50, -100]; Currently, this bug is mitigated by placing setView inside the callback with another in the else statement
    
 
    const streets = L.tileLayer(

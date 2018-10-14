@@ -2,21 +2,25 @@ extends includes/app.pug
 
 block content
   script(src="/static/js/report.js")
-  linK(rel="stylesheet", src="/static/css/report.css") 
+  link(rel="stylesheet", src="/static/css/report.css") 
 
-  h1 Submit a Found Pet Report"
+  h1 Submit a Found Pet Report
   form(action="/submit" class="report border rounded")
+    div(class="form-group")
+      label(for="findername") Finder's Name
+      input(type="text" class="form-control" name="findername" placeholder="Enter your name")
+
     div(class="form-group")
       label(for="location") Location where the pet was found
       input(type="text" class="form-control" name="location" placeholder="Enter location")
 
     div(class="form-group")
       label(for="species") Species
-      input(type="text" class="form-control" name="species" placeholder="Enter the pet species")
+      input(type="text" class="form-control" name="species" placeholder="Enter species")
 
     div(class="form-group")
       label(for="name") Pet name
-      input(type="text" class="form-control" name="name" placeholder="Enter pet name")
+      input(type="text" class="form-control" name="name" placeholder="Enter name")
 
     div(class="form-group")
       label(for="desription") Description
