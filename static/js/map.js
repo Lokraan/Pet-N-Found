@@ -2,9 +2,9 @@ $(document).ready(() => {
    $('#petmap').css('height', window.innerHeight + 'px');
    const petmap = L.map('petmap');
    
-   const lat = 50;  
-   const long = -100;
-   const zoom = 9;
+   let lat  = navigator.geolocation.getCurrentPosition(pos => pos.coords.latitude) || 50;  
+   let long = navigator.geolocation.getCurrentPosition(pos => pos.coords.longitude) || -100;
+   let zoom = 9;
 
    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
@@ -18,8 +18,8 @@ $(document).ready(() => {
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
          attribution: '&copy OpenStreetMap',
-         minZoom: 4,
-         maxZoom: 18
+         minZoom    : 4,
+         maxZoom    : 18
       }
    );
    streets.addTo(petmap);

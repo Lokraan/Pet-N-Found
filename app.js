@@ -28,8 +28,8 @@ io.on('connection', socket => {
       socket.emit('Lost Reports', reports ? reports : []);
    });
 
-   io.on('disconnect', () => {
-      console.log('Client Disconnected (' + cons + ')');
+   socket.on('disconnect', () => {
       cons--;
+      console.log('Client Disconnected (' + cons + ')');
    });
 });
