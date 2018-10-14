@@ -1,9 +1,10 @@
+
 mixin nav(direction, hover_color)
   link(rel="stylesheet" href="/static/css/nav.css")
   nav(class="menu")
     ul(class!=direction)
       li(class="menu-item")
-        a(class="menu-link" href="/reportToggle") Report
+        a(class="menu-link" href="/report") Report
       li(class="menu-item")
         a(class="menu-link" href="/map") Map
       li(class="menu-item")

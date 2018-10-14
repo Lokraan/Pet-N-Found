@@ -19,54 +19,50 @@ module.exports = {
     const url = url_base + address
     http.get(url, (res) => {
       const { statusCode } = res;
-  const contentType = res.headers['content-type'];
+      const contentType = res.headers['content-type'];
 
-  let error;
-  if (statusCode !== 200) {
-    error = new Error('Request Failed.\n' +
-                      `Status Code: ${statusCode}`);
-  } else if (!/^application\/json/.test(contentType)) {
-    error = new Error('Invalid content-type.\n' +
-                      `Expected application/json but received ${contentType}`);
-  }
-  if (error) {
-    console.error(error.message);
-    // consume response data to free up memory
-    res.resume();
-    return;
-  }
+      let error;
+      if (statusCode !== 200) {
+        error = new Error('Request Failed.\n' +
+                          `Status Code: ${statusCode}`);
+      } else if (!/^application\/json/.test(contentType)) {
+        error = new Error('Invalid content-type.\n' +
+                          `Expected application/json but received ${contentType}`);
+      }
+      if (error) {
+        console.error(error.message);
+        // consume response data to free up memory
+        res.resume();
+        return;
+      }
 
-  res.setEncoding('utf8');
-  let rawData = '';
-  res.on('data', (chunk) => { rawData += chunk; });
-  res.on('end', () => {
-    try {
-      const parsedData = JSON.parse(rawData);
-      const latLng = parsedData.results[0].locations[0].latLng;
+      res.setEncoding('utf8');
+      let rawData = '';
+      res.on('data', (chunk) => {
+        rawData += chunk;
+      });
+      res.on('end', () => {
+        try {
+          const parsedData = JSON.parse(rawData);
+          const latLng = parsedData.results[0].locations[0].latLng;
+          const lat = latLng.lat;
+          const lon = latLng.lng;
 
-      const data = [address, species, latLng.lat, latLng.lng, image, name, description, email, phone];
-      console.log("Data", data)
-      db.run(query, 
-       data,
-       (err, res) => {
-        if(err) {
-          console.log(err)
-          throw err
+          const data = [address, species, lat, lon, image, name, description, email, phone];
+          console.log("Data", data)
+          db.run(query, data, (err, res) => {
+            if(err) {
+              console.log(err)
+              throw err
+            }
+          })
+        } catch (e) {
+          console.error(e.message);
         }
-
-        
-      })
-    } catch (e) {
-      console.error(e.message);
-    }
-  });
-}).on('error', (e) => {
-  console.error(`Got error: ${e.message}`);
+      });
+    }).on('error', (e) => {
+      console.error(`Got error: ${e.message}`);
     })
-      // request({uri: url, json: true})
-      //   .on('response', (res) => {
-      //     console.log(res.toJSON())
-      //   });
   },
 
   getLostReports(callback) {

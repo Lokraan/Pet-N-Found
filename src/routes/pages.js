@@ -20,8 +20,8 @@ router.get("/submit", (req, res) => {
    console.log(req.location)
 
   db.addReport(
-    req.query.location, req.query.species, "Nnot and Image", req.query.name,
-    "I have no description", req.query.email, req.query.phone
+    req.query.location, req.query.species, "Not an Image", req.query.name,
+    req.query.description, req.query.email, req.query.phone
   )
 
   res.render("index", {title: "Pet n Found"})

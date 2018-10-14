@@ -1,13 +1,37 @@
 extends includes/app.pug
 
 block content
-  script(src="../static/js/report.js")
-  h1 Submit a Lost Pet Report
-  form(action="/submit" class="report")
-    input(type="text" class="form-control" name="location" placeholder="Location")
-    input(type="text" class="form-control" name="species" placeholder="Species")
-    input(type="text" class="form-control" name="name" placeholder="Name")
-    input(type="text" class="form-control" name="email" placeholder="Email")
-    input(type="text" class="form-control" name="phone" placeholder="Phone")
-    button(type="button" onclick="fileSelect()") Select File
-    input(type="submit" class="form-control" placeholder="Submit")
+  script(src="/static/js/report.js")
+  linK(rel="stylesheet", src="/static/css/report.css") 
+
+  h1 Submit a Found Pet Report"
+  form(action="/submit" class="report border rounded")
+    div(class="form-group")
+      label(for="location") Location where the pet was found
+      input(type="text" class="form-control" name="location" placeholder="Enter location")
+
+    div(class="form-group")
+      label(for="species") Species
+      input(type="text" class="form-control" name="species" placeholder="Enter the pet species")
+
+    div(class="form-group")
+      label(for="name") Pet name
+      input(type="text" class="form-control" name="name" placeholder="Enter pet name")
+
+    div(class="form-group")
+      label(for="desription") Description
+      textarea(class="form-control" name="description" rows="3")
+
+    div(class="form-group")
+      label(for="email") Email address
+      input(type="text" class="form-control" name="email" placeholder="Enter email")
+
+    div(class="form-group")
+      label(for="phone") Phone number
+      input(type="text" class="form-control" name="phone" placeholder="Enter phone number")
+
+    div(class="form-group")
+      label(class="custom-file") File Input
+      input(type="file" name="file" class="form-control-file")
+
+    button(type="submit" class="btn btn-primary") Submit
