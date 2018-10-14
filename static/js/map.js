@@ -1,39 +1,20 @@
-let lat = 50;  
-let long = -100;
-let zoom = 9;
-
 $(document).ready(() => {
-   let connection = new SocketConnection();
-   connection.connect();
-   let socket = connection.socket;
-   let lostReports;
-   socket.on('Lost Reports', reports => {
-      lostReports = reports;
-      for(let i = 0; i < lostReports.length; i++) {
-         let r = lostReports[i];
-         let m = L.marker([r.lat, r.lon], {
-            title: r.name,
-            keyboard: false,
-            riseOnHover: true
-         });
-         m.bindPopup('Pet\'s Name: ' + r.name + ' | Species: ' + r.species + ' | Description: ' + r.description + ' | Email: ' + r.email + ' | Phone: ' + r.phone);
-         m.addTo(petmap);
-      }
-      console.log(lostReports);
-   });
-
    $('#petmap').css('height', window.innerHeight + 'px');
-   let petmap = L.map('petmap');
+   const petmap = L.map('petmap');
    
+   const lat = 50;  
+   const long = -100;
+   const zoom = 9;
+
    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
          lat = pos.coords.latitude;
          long = pos.coords.longitude;
-         petmap.setView([lat, long], zoom);
       });
    }
+   petmap.setView([lat, long], zoom);
 
-   let streets = L.tileLayer(
+   const streets = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
          attribution: '&copy OpenStreetMap',
@@ -42,4 +23,27 @@ $(document).ready(() => {
       }
    );
    streets.addTo(petmap);
+
+   const connection = new SocketConnection();
+   connection.connect();
+
+   const socket = connection.socket;
+   socket.on('Lost Reports', reports => {
+      console.log("reports:", reports);
+      
+      reports.forEach((report) => {
+         const marker = L.marker([report.lat, report.lon], {
+            title: report.name,
+            keyboard: false,
+            riseOnHover: true
+         });
+
+         marker.bindPopup(
+            `Pet's Name: ${report.name} | Species: ${report.species} 
+            | Description: ${report.description} | Email: ${report.email} 
+            | Phone: ${report.phone}`
+         );
+         marker.addTo(petmap);
+      });
+   });
 });
