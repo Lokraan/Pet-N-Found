@@ -1,7 +1,20 @@
 const { app: { port } } = require("./config/config");
 const express = require("express");
 const app = express();
-const server = app.listen(port);
+const bodyParser = require("body-parser");
+const session = require("express-session");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false
+}));
+
+const server = app.listen(port, () => {
+   console.log(`Listening on port ${port}`);
+});
 
 const db = require("./src/db.js");
 
@@ -13,8 +26,6 @@ router(app);
 
 app.set("views", "./src/views");
 app.set("view engine", "pug");
-
-console.log(`Listening on port ${port}`);
 
 // Sockets
 let cons = 0;

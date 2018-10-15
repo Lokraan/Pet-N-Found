@@ -3,6 +3,7 @@ const { db } = require("../config/db_conf")
 const { to } = require("await-to-js")
 const request = require("request")
 const http = require("http")
+const bcrypt = require("bcrypt")
 
 module.exports = {
   helloWorld() {
@@ -51,10 +52,8 @@ module.exports = {
           const data = [address, species, lat, lon, image, name, description, email, phone];
           console.log("Data", data)
           db.run(query, data, (err, res) => {
-            if(err) {
-              console.log(err)
+            if(err)
               throw err
-            }
           })
         } catch (e) {
           console.error(e.message);
@@ -65,8 +64,69 @@ module.exports = {
     })
   },
 
+  addUser(email, username, password, callback) {
+    const query = `
+      INSERT INTO users
+      (email, username, password)
+      VALUES (?, ?, ?)`;
+
+    bcrypt.hash(password, 10, (err, hash) => {
+      if(err)
+        callback(err, null);
+
+      db.run(query, [email, username, hash], (err, res) => {
+        if(err)
+          callback(err, null);
+
+        const user = {email: email, username: username, password: password};
+        console.log("added user:", user);
+      });
+    });
+  },
+
+  findUserByUsername(username, callback) {
+    const query = "SELECT * FROM users WHERE username = ?";
+
+    db.get(query, [username], (err, res) => {
+      if(err)
+        callback(err, null);
+
+      callback(null, res);
+    })
+  },
+
+  findUserByUsernameAndPassword(username, password, callback) {
+    this.findUserByUsername(username, (err, res) => {
+      if(err)
+        callback(err, null);
+
+      bcrypt.compare(password, res.password, function(err, res2) {
+        if(err)
+          return callback(err, null);
+
+        if(res2 === true)
+          return callback(null, res);
+
+        return callback(err, null);
+      })
+      
+      callback(null, res);
+    });
+  },
+
   getLostReports(callback) {
     const query = "SELECT * FROM lost_reports"
+    
+    db.all(query, (err, res) => {
+      if(err) 
+        throw err
+
+      callback(res)
+    })
+  },
+
+  getUsers(callback) {
+    const query = "SELECT * FROM users"
     
     db.all(query, (err, res) => {
       if(err) 

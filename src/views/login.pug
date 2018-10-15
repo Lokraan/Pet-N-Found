@@ -18,13 +18,12 @@ html(lang="en")
                 div(class="col-xs-6")
                   a(id="register-form-link" href="#") Register
               hr
-                
+
             div(class="panel-body")
               div(class="row")
                 div(class="col-lg-12")
                   form(id="login-form" action="/login/process" method="post" role="form" class="display-block")
                     include includes/login_inputs
-
 
                   form(id="register-form" action="/register/process" method="post" role="form" class="none")
                     include includes/register_inputs.pug
