@@ -16,9 +16,6 @@ router.get("/report", (req, res) => {
 })
 
 router.get("/submit", (req, res) => {
-   console.log("POST!")
-   console.log(req.location)
-
   db.addReport(
     req.query.location, req.query.species, "Not an Image", req.query.name,
     req.query.description, req.query.email, req.query.phone
@@ -27,4 +24,11 @@ router.get("/submit", (req, res) => {
   res.render("index", {title: "Pet n Found"})
 })
 
+router.get("/login", (req, res) => {
+  res.render("login", {title: "Login - Pet n Found"})
+})
+
+router.get("/register", (req, res) => {
+  res.render("register", {title: "Register - Pet n Found"})
+})
 module.exports = router

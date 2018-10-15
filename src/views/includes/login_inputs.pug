@@ -1,0 +1,23 @@
+div(class="input-group mb-3")
+  div(class="input-group-addon")
+    span(class="material-icons") account_circle
+  input(id="username" class="form-control" name="username" tabindex="1" 
+    placeholder="Username" type="text" value="")
+
+div(class="input-group mb-3")
+  div(class="input-group-addon")
+    span(class="material-icons") lock
+  input(id="password" class="form-control" name="password" tabindex="2" 
+    placeholder="Password" type="password" value="")
+
+div(class="input-group mb-3")
+  div(class="row")
+    div(class="col-sm-6 col-sm-offset-3")
+      input(id="login-submit" class="form-control btn btn-login" name="login-submit"
+        tabindex="3" value="Log In" type="submit")
+
+div(class="input-group mb-3")
+  div(class="row")
+    div(class="col-lg-12")
+      div(class="text-center")
+        a(class="forgot-password" href="/recover" tabindex="4") Forgot Password?

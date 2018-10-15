@@ -26,6 +26,14 @@ ul, li, a {
   font-size: 1.75rem;
 }
 
+.display-block {
+  display: block;
+}
+
+.none {
+  display: none;
+}
+
 @media (min-width: 50%) {
   .container {
     min-height: 100%;
