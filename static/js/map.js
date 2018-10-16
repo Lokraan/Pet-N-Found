@@ -1,7 +1,7 @@
-const DEFAULT_ZOOM      = 9;
-const MIN_ZOOM          = 4;
-const MAX_ZOOM          = 18;
-const DEFAULT_LATITUDE  = 50;
+const DEFAULT_ZOOM = 9;
+const MIN_ZOOM = 4;
+const MAX_ZOOM = 18;
+const DEFAULT_LATITUDE = 50;
 const DEFAULT_LONGITUDE = -100;
 
 $(document).ready(() => {
@@ -23,14 +23,13 @@ $(document).ready(() => {
       petmap.setView([lat, lon], zoom);
    }
    // console.log([lat, lon]); // Bug: variables 'lat' and 'lon' do not hold their values set in the getCurrentPosition callback, this log prints [50, -100]; Currently, this bug is mitigated by placing setView inside the callback with another in the else statement
-   
+
 
    const streets = L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
          attribution: '&copy OpenStreetMap',
-         minZoom    : MIN_ZOOM,
-         maxZoom    : MAX_ZOOM
+         minZoom: MIN_ZOOM,
+         maxZoom: MAX_ZOOM
       }
    );
    streets.addTo(petmap);
@@ -41,7 +40,7 @@ $(document).ready(() => {
    const socket = connection.socket;
    socket.on('Lost Reports', reports => {
       console.log("Reports:", reports);
-      
+
       reports.forEach((report) => {
          const marker = L.marker([report.lat, report.lon], {
             title: report.name,
