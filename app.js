@@ -15,7 +15,7 @@ app.set("views", "./src/views");
 app.set("view engine", "pug");
 
 
-console.log("Listening on " + port);
+console.log('Listening on port ' + port);
 
 // Sockets
 let cons = 0;
