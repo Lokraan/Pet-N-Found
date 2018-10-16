@@ -4,13 +4,14 @@ const app = express();
 const bodyParser = require("body-parser");
 const session = require("express-session");
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//use sessions for tracking logins
 app.use(session({
-  secret: 'work hard',
-  resave: true,
-  saveUninitialized: false
+   secret: 'work hard',
+   resave: true,
+   saveUninitialized: false,
 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const server = app.listen(port, () => {
    console.log(`Listening on port ${port}`);

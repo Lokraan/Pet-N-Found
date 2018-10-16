@@ -1,9 +1,8 @@
-const { OpenStreetMapProvider } = require('leaflet-geosearch')
-const { db } = require("../config/db_conf")
-const { to } = require("await-to-js")
-const request = require("request")
-const http = require("http")
-const bcrypt = require("bcrypt")
+const { db } = require("../config/db_conf");
+const { to } = require("await-to-js");
+const request = require("request");
+const http = require("http");
+const bcrypt = require("bcrypt");
 
 module.exports = {
   helloWorld() {
@@ -64,24 +63,37 @@ module.exports = {
     })
   },
 
-  addUser(email, username, password, callback) {
+  addUser(email, username, password, id, callback) {
     const query = `
       INSERT INTO users
-      (email, username, password)
-      VALUES (?, ?, ?)`;
+      (email, username, password, id)
+      VALUES (?, ?, ?, ?)`;
 
     bcrypt.hash(password, 10, (err, hash) => {
       if(err)
         callback(err, null);
 
-      db.run(query, [email, username, hash], (err, res) => {
+      db.run(query, [email, username, hash, id], (err, res) => {
         if(err)
-          callback(err, null);
+          return callback(err, null);
 
-        const user = {email: email, username: username, password: password};
+        const user = {email: email, username: username, password: password, id: id};
         console.log("added user:", user);
+
+        callback(err, res);
       });
     });
+  },
+
+  findUserById(id, callback) {
+    const query = "SELECT * FROM users WHERE id = ?";
+
+    db.get(query, [id], (err, res) => {
+      if(err || res == null)
+        return callback(err, null);
+
+      callback(null, res);
+    })
   },
 
   findUserByUsername(username, callback) {
@@ -89,7 +101,7 @@ module.exports = {
 
     db.get(query, [username], (err, res) => {
       if(err)
-        callback(err, null);
+        return callback(err, null);
 
       callback(null, res);
     })
@@ -97,20 +109,16 @@ module.exports = {
 
   findUserByUsernameAndPassword(username, password, callback) {
     this.findUserByUsername(username, (err, res) => {
-      if(err)
-        callback(err, null);
+      if(err || res == null)
+        return callback(err, res);
 
-      bcrypt.compare(password, res.password, function(err, res2) {
+      bcrypt.compare(password, res.password, function(err, equal) {
         if(err)
-          return callback(err, null);
+          callback(err, null);
 
-        if(res2 === true)
-          return callback(null, res);
-
-        return callback(err, null);
-      })
-      
-      callback(null, res);
+        if(equal)
+          callback(null, res);
+      });
     });
   },
 

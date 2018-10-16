@@ -20,13 +20,14 @@ const schemas = [
     email TEXT UNIQUE NOT NULL,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
+    id TEXT NOT NULL,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
   )`
 ]
 
 db.serialize(function() {
   // db.run("DROP TABLE IF EXISTS lost_reports")
-  // db.run(DROP TALBE IF EXISTS users)
+  // db.run("DROP TABLE IF EXISTS users")
   for (var i = schemas.length - 1; i >= 0; i--) {
     db.run(schemas[i])
   }
