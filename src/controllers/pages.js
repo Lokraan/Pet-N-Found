@@ -9,14 +9,14 @@ router.get("/", (req, res) => {
 });
 
 router.get("/map", (req, res) => {
-  res.render("map", {title: "Pet n Found"});
+  res.render("map/index", {title: "Pet n Found"});
 });
 
 router.get("/report", (req, res) => {
   if (req.session && req.session.userId) {
     db.findUserById(req.session.userId, (err, user) => {
       if(user)
-        return res.render("report", {title: "Pet n Found"});
+        return res.render("report/index", {title: "Pet n Found"});
     });
   } else {
     return res.redirect("/login");
@@ -33,7 +33,7 @@ router.get("/submit", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.render("login", {title: "Login - Pet n Found"});
+  res.render("login/index", {title: "Login - Pet n Found"});
 });
 
 router.post("/login/process", (req, res, next) => {
@@ -67,7 +67,7 @@ router.post("/login/process", (req, res, next) => {
 });
 
 router.get("/register", (req, res) => {
-  res.render("register", {title: "Register - Pet n Found"})
+  res.render("register/index", {title: "Register - Pet n Found"})
 });
 
 router.post("/register/process", (req, res, next) => {

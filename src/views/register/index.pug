@@ -1,9 +1,8 @@
-
 html(lang="en")
-  include includes/head.pug
+  include ../layout/head.pug
 
-  link(rel="stylesheet" href="static/css/app.css")
-  link(rel="stylesheet" href="static/css/authorize.css")
+  link(rel="stylesheet" href="/public/css/app.css")
+  link(rel="stylesheet" href="/public/css/authorize.css")
   link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
 
   body
@@ -23,15 +22,15 @@ html(lang="en")
               div(class="row")
                 div(class="col-lg-12")
                   form(id="login-form" action="/login/process" method="post" role="form" class="none")
-                    include includes/login_inputs.pug
+                    include ../layout/_login_inputs.pug
 
                   form(id="register-form" action="/register/process" method="post" role="form"
                     class="display-block")
-                    include includes/register_inputs.pug
+                    include ../layout/_register_inputs.pug
 
     // JQuery
     script(src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous")
-    script(src="static/js/bootstrap.min.js")
-    script(src="static/js/authorize.js")
+    script(src="/public/js/bootstrap.min.js")
+    script(src="/public/js/authorize.js")
