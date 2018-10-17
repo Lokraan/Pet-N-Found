@@ -22,11 +22,12 @@ const db = require("./src/db.js");
 let socketio = require('socket.io');
 let io = socketio(server);
 
-const router = require("./src/routes/index");
+const router = require("./src/controllers/index");
 router(app);
 
-app.set("views", "./src/views");
 app.set("view engine", "pug");
+app.set("views", "./src/views");
+app.use("/public", express.static("public"));
 
 // Sockets
 let cons = 0;

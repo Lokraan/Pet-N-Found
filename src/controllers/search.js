@@ -6,7 +6,7 @@ const router = express.Router()
 router.get("/", (req, res) => {
   const { url } = req.params
 
-  res.render("search")
+  res.render("search/index")
 })
 
 module.exports = router

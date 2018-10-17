@@ -1,8 +1,8 @@
-extends includes/app.pug
+extends ../layout/app.pug
 
 block content
-  script(src="/static/js/report.js")
-  link(rel="stylesheet", src="/static/css/report.css") 
+  script(src="/public/js/report.js")
+  link(rel="stylesheet", src="/public/css/report.css") 
 
   h1 Submit a Found Pet Report
   form(action="/submit" class="report border rounded")
