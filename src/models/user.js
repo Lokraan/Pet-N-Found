@@ -29,7 +29,6 @@ const User = sequelize.define("user", {
   }
 );
 
-console.log(User);
 User.hasMany(LostReport, {as: "lost_reports"});
 
 module.exports = User;

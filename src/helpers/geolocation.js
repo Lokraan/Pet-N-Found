@@ -42,7 +42,6 @@ class MapQuest {
         const parsedData = JSON.parse(rawData);
         const coordinates = parsedData.results[0].locations[0].latLng;
 
-        console.log(coordinates);
         return callback(null, coordinates);
       });
     }).on('error', (e) => {

@@ -21,9 +21,6 @@ app.use("/public", express.static("public"));
 const router = require("./src/controllers/index");
 router(app);
 
-const sequelize = require("./src/db");
-sequelize.sync();
-
 const port = config.get("app.port")
 const server = app.listen(port, () => {
    console.log(`Listening on port ${port}`);

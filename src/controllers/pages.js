@@ -36,9 +36,9 @@ router.get("/submit", (req, res, next) => {
   const q = req.query;
 
   mapQuest.getLatitudeLongitudeFromAddress(q.location, (err, coords) => {
-    console.log(coords);
     LostReport.create({
       name: q.name,
+      species: q.species,
       address: q.location,
       latitude: coords.lat,
       longitude: coords.lng,
@@ -73,7 +73,6 @@ router.post("/login/process", (req, res, next) => {
           return next("Incorrect Password");
 
         req.session.userId = user.id;
-        console.log(req.session.userId);
 
         req.session.save((err) => {
           return res.redirect("/");
@@ -119,7 +118,6 @@ router.post("/register/process", (req, res, next) => {
       }).then((user) => {
         req.session.userId = user.uuid;
 
-        console.log(req.session.userId);
         req.session.save((err) => {
           return res.redirect("/");
         })

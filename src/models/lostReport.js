@@ -15,6 +15,10 @@ const LostReport = sequelize.define("lost_report", {
       type: Sequelize.DOUBLE,
       allowNull: false
     },
+    species: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     name: {
       type: Sequelize.STRING,
       allowNull: false
