@@ -4,7 +4,7 @@
   "description": "My website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "reset": "node src/migration.js",
     "seed": "node src/seed.js",
     "setup": "npm run reset && npm run seed"
@@ -26,5 +26,9 @@
     "uuid": "^3.3.2",
     "webfunc": "^0.14.0"
   },
-  "repository": "https://github.com/Lokraan/personal-website"
+  "repository": "https://github.com/Lokraan/personal-website",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
 }

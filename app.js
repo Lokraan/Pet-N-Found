@@ -37,11 +37,16 @@ io.on('connection', socket => {
 
    // Send Reports
    db.getLostReports((reports) => {
-       socket.emit('Lost Reports', reports ? reports : []);
+      socket.emit('Lost Reports', reports ? reports : []);
+      module.exports.reports = reprots;
    });
 
    socket.on('disconnect', () => {
-       cons--;
-       console.log(`Client Disconnected (${cons})`);
+      cons--;
+      console.log(`Client Disconnected (${cons})`);
    });
 });
+
+module.exports = {
+   reports: []
+};
