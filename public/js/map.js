@@ -44,7 +44,7 @@ $(document).ready(() => {
       console.log("Reports:", reports);
 
       reports.forEach((report) => {
-         const marker = L.marker([report.lat, report.lon], {
+         const marker = L.marker([report.latitude, report.longitude], {
             title: report.name,
             keyboard: false,
             riseOnHover: true
