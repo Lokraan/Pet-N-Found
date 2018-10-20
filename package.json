@@ -4,12 +4,12 @@
   "description": "App to connect pet owners to their lost pets.",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive",
     "migrate": "node src/migrations/migrate.js",
     "reset": "node src/migrations/reset.js",
     "seed": "node src/migrations/seed.js"
   },
-  "author": "g",
+  "author": "Gabriel Hill and Zachary Siegel",
   "license": "ISC",
   "dependencies": {
     "await-to-js": "^2.0.1",

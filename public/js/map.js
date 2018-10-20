@@ -5,7 +5,10 @@ const DEFAULT_LATITUDE = 50;
 const DEFAULT_LONGITUDE = -100;
 
 $(document).ready(() => {
-   $('#petmap').css('height', window.innerHeight + 'px');
+   console.log($('ul'));
+   $('#petmap')
+      .css('height', window.innerHeight + 'px')
+      .css('margin-left', '150px');
    const petmap = L.map('petmap', {
       worldCopyJump: true // "the map tracks when you pan to another "copy" of the world and seamlessly jumps to the original one so that all overlays like markers and vector layers are still visible"
    });

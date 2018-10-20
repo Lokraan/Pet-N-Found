@@ -1,4 +1,7 @@
 html(lang='en')
+
+   include ../layout/sidebar.pug
+
    head
       // JQuery
       script(src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -23,5 +26,6 @@ html(lang='en')
          
       // Socket
       script(type='text/javascript' src='/public/js/socket.js')
+
    body
       div(id='petmap')
