@@ -1,10 +1,14 @@
-const db = require("../db");
 const express = require('express');
+const bcrypt = require("bcrypt");
+
+const User = require("../models/user");
+const LostReport = require("../models/lostReport");
+const { MapQuest }= require("../helpers/geolocation");
+
 const router = express.Router();
-const uuidv1 = require("uuid/v1");
+const mapQuest = new MapQuest("PVNakNDJNXGyp5NZGmmcVz4DZsvMz2mO");
 
 router.get("/", (req, res) => {
-  //const blogs = await db.getBlogPosts()
   res.render("index", {title: "Pet n Found"});
 });
 
@@ -14,22 +18,35 @@ router.get("/map", (req, res) => {
 
 router.get("/report", (req, res) => {
   if (req.session && req.session.userId) {
-    db.findUserById(req.session.userId, (err, user) => {
-      if(user)
+    User.findOne({
+      where: {
+        uuid: req.session.userId
+    }}).then((user) => {
+      if(user.uuid == req.session.userId) 
         return res.render("report/index", {title: "Pet n Found"});
-    });
+      else
+        return res.redirect("/login");
+    })
   } else {
     return res.redirect("/login");
   }
 });
 
-router.get("/submit", (req, res) => {
-  db.addReport(
-    req.query.location, req.query.species, "Not an Image", req.query.name,
-    req.query.description, req.query.email, req.query.phone
-  );
+router.get("/submit", (req, res, next) => {
+  const q = req.query;
 
-  res.render("index", {title: "Pet n Found"});
+  mapQuest.getLatitudeLongitudeFromAddress(q.location, (err, coords) => {
+    LostReport.create({
+      name: q.name,
+      species: q.species,
+      address: q.location,
+      latitude: coords.lat,
+      longitude: coords.lng,
+      description: q.description
+    }).then(() => {
+      return res.redirect("/");
+    });
+  });
 });
 
 router.get("/login", (req, res) => {
@@ -43,20 +60,24 @@ router.post("/login/process", (req, res, next) => {
   const password = query.password;
 
   if (username && password) {
-    db.findUserByUsernameAndPassword(username, password, (err, user) => {
-      if (err)
-        return next(err);
+    User.findOne({
+      where: {
+        username: username
+      }
+    }).then((user) => {
+      if(!user)
+        return next("Username not found");
 
-      console.log("user:", user);
-      if (user) {
+      bcrypt.compare(password, user.password, (err, isEqual) => {
+        if(err)
+          return next("Incorrect Password");
+
         req.session.userId = user.id;
 
         req.session.save((err) => {
           return res.redirect("/");
-        });
-      } else {
-        return res.send("User not found");
-      }
+        }); 
+      });
     });
   } else {
     const err = new Error("Fill out all fields");
@@ -86,14 +107,20 @@ router.post("/register/process", (req, res, next) => {
   }
 
   if (email && username && password && confirmationPassword) {
-    const uuid = uuidv1();
-    db.addUser(email, username, password, uuid, (err, dbRes) => {
+    bcrypt.hash(password, 10, (err, hash) => {
       if(err)
-        return next(err);
+        throw err;
 
-      req.session.userId = uuid;
-      req.session.save((err) => {
-        return res.redirect("/");
+      User.create({
+        email: email,
+        username: username,
+        password: hash
+      }).then((user) => {
+        req.session.userId = user.uuid;
+
+        req.session.save((err) => {
+          return res.redirect("/");
+        })
       });
     });
   } else {
