@@ -18,9 +18,7 @@ router.get("/:username", (req, res) => {
         username: user.username,
         lostReports: user.lost_reports
       }
-
-      res.send(userSend);
-      // res.render("user/index", {user: user, title: "Pet n Found"});
+      res.render("user/index", {user: userSend, title: "Pet n Found"});
     } else
       res.send("404 not found");
   });

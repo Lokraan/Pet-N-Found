@@ -1,0 +1,9 @@
+extends ../layout/app.pug
+
+include _report_tile.pug
+
+block content
+  center
+    h1=user.username
+    each report in user.lostReports
+      +report_tile(report)
