@@ -42,7 +42,8 @@ router.get("/submit", (req, res, next) => {
       address: q.location,
       latitude: coords.lat,
       longitude: coords.lng,
-      description: q.description
+      description: q.description,
+      userUuid: req.session.userId
     }).then(() => {
       return res.redirect("/");
     });
@@ -72,7 +73,7 @@ router.post("/login/process", (req, res, next) => {
         if(err)
           return next("Incorrect Password");
 
-        req.session.userId = user.id;
+        req.session.userId = user.uuid;
 
         req.session.save((err) => {
           return res.redirect("/");
