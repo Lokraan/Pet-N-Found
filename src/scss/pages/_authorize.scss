@@ -1,20 +1,36 @@
 @import "../themes/default.scss";
 
-body {
-  padding-top: 90px;
-}
+.display-block {
+  display: block; }
+
+.jumbotron {
+  background-color: $wintergreen-dream !important; }
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+  }
 
 .panel-login {
-  border-color: #ccc;
-  -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  border-color: $smoky-black;
+  -webkit-box-shadow: 0px 2px 3px 0px rgba($smoky-black, .4);
+  -moz-box-shadow: 0px 2px 3px 0px rgba($smoky-black, .4);
+  box-shadow: 0px 2px 3px 0px rgba($smoky-black, .4) !important;
 
-  &-heading {
+  & .panel-heading {
     color: #00415d;
     background-color: #fff;
     border-color: #fff;
-    text-align:center;
+    text-align: center;
+    align-items: center;
+
+    & .row {
+      display: inline;
+      text-align: center;
+    }
 
     a {
       text-decoration: none;
@@ -25,8 +41,8 @@ body {
       -moz-transition: all 0.1s linear;
       transition: all 0.1s linear;
 
-      &:active {
-        color: #029f5b;
+      &.active {
+        color: $primary;
         font-size: 18px;
       }
     }
@@ -37,10 +53,7 @@ body {
       clear: both;
       border: 0;
       height: 1px;
-      background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-      background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-      background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-      background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+      background-image: linear-gradient(to left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
     }
   }
 
@@ -74,10 +87,10 @@ body {
 
 .btn {
   outline: none;
-  color: #fff;
   font-size: 14px;
   height: auto;
   font-weight: normal;
+  color: white;
   padding: 14px 0;
   text-transform: uppercase;
 
@@ -86,9 +99,8 @@ body {
     border-color: $login-button-color;
   
     &:hover, &:focus {
-      color: white;
-      background-color: mix(black, $login-button-color, 25);
-      border-color: mix(black, $login-button-color, 25);
+      background-color: mix(black, $login-button-color, 15);
+      border-color: mix(black, $login-button-color, 15);
     }
   }
 
@@ -98,8 +110,8 @@ body {
 
     &:hover, &:focus {
       color: white;
-      background-color: mix(black, $register-button-color, 25);
-      border-color: mix(black, $register-button-color, 25);
+      background-color: mix(black, $register-button-color, 15);
+      border-color: mix(black, $register-button-color, 15);
     }
   }
 }
