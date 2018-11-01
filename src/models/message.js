@@ -36,7 +36,8 @@ const Message = sequelize.define("message", {
         const id = crypto.createHash("sha256").
           update(msg.author).
           update(msg.receiver).
-          update(msg.created_at).
+          update(Date.now()).
+          update(content).
           digest("base64");
 
         msg.id = id;

@@ -1,6 +1,39 @@
 $primary: rgba(23, 181, 99, 1);
 $secondary: rgba(224, 242, 233, 1);
+
+$smoky-black: rgba(10, 9, 8, 1);
 $dark-vanilla: rgba(206, 181, 167, 1);
 $mellow-yellow: rgba(255, 221, 112, 1);
 $burnished-brown: rgba(161, 124, 107, 1);
 $wintergreen-dream: rgba(91, 123, 122, 1);
+
+$link-color: $smoky-black;
+
+$large-font-size: 24px;
+$regular-font-size: 14px;
+
+$login-button-color: #59B2E0;
+$register-button-color: #1CB94E;
+
+* {
+  font-family: "Source Code Pro", monospace; }
+
+ul, li, a {
+  color: inherit; }
+
+a {
+  color: $link-color;
+}
+
+.none {
+  display: none; }
+
+.display-block {
+  display: block; }
+
+@media (min-width: 50%) {
+  .container {
+    min-height: 100%;
+    max-width: 75%; 
+  }
+}

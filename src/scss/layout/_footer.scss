@@ -1,0 +1,10 @@
+@import "../themes/_default.scss";
+
+$height: 100px;
+
+.footer {
+  width: 100%;
+  margin: 5rem 0px 0px 0px;
+  height: $height;
+  background-color: $primary;
+}

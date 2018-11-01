@@ -1,1 +1,14 @@
 @import "themes/_default.scss";
+
+@import "components/_navigation.scss";
+@import "components/_tile.scss";
+
+@import "layout/_footer.scss";
+@import "layout/_header.scss";
+
+@import "pages/_authorize.scss";
+@import "pages/_index.scss";
+@import "pages/_map.scss";
+
+@import "vendor/_bootstrap.scss";
+@import "vendor/_normalize.scss";

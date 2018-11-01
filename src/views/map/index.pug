@@ -1,4 +1,6 @@
 html(lang='en')
+   include ../layout/head.pug
+
    head
       // JQuery
       script(src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -17,11 +19,11 @@ html(lang='en')
          crossorigin="")
 
       title=title
-      // Map
-      link(href='/public/css/map.css' rel='stylesheet')
+      
       script(type='text/javascript' src='/public/js/map.js')
          
       // Socket
       script(type='text/javascript' src='/public/js/socket.js')
+
    body
       div(id='petmap')
