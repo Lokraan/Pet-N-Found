@@ -1,4 +1,190 @@
-.dog-logo {
-  float: right;
-  height: 100px;
+
+%text-shared {
+  font-family: Lora;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 0.8rem;
+  text-align: center;
+
+  text-shadow: 0px 4px 4px rgba($tertiary, 0.25);
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 924px;
+  left: 0px;
+  top: 100px;
+
+  & .main {
+    position: absolute;
+    width: 100%;
+    height: 400px;
+    left: 0%;
+    top: 0%;
+    background: url("/public/images/mapBackgroundImage.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    box-shadow: 0px 4px 4px rgba($tertiary, 0.25);
+    & .hook {
+      @extend %text-shared;
+
+      color: $tertiary;
+      font-size: 1.3rem;
+      text-shadow: 0px 4px 4px rgba($tertiary, 0.25);
+
+      position: absolute;
+      left: 9%;
+      right: 58.33%;
+      top: 20%;
+      bottom: 76.37%;
+    }
+
+    & .line {
+      position: absolute;
+      left: 7.5%;
+      right: 57.78%;
+      top: 38%;
+      bottom: 62.5%;
+
+      /* Tertiary */
+      border: 1px solid $tertiary;
+    }
+
+    & .more-info {
+      position: absolute;
+      left: 6.11%;
+      right: 54.86%;
+      top: 40%;
+      bottom: 45%;
+    }
+
+    & .get-started-btn {
+      position: absolute;
+      left: 12.5%;
+      right: 58.33%;
+      top: 60%;
+      bottom: 30%;
+      width: 25%;
+      height: 13.5%;
+
+      display: inline-block;
+      vertical-align: middle;
+      line-height: normal;
+
+      padding: 0.3rem;
+
+      text-decoration: none;
+
+      /* Button Color */
+      background-color: lighten($primary, 35%);
+      border-radius: 3px;
+
+      &:hover {
+        background-color: darken(lighten($primary, 35%), 5%); 
+      }
+    }
+  }
+
+  & .secondary {
+    background-color: $primary;
+    position: absolute;
+    width: 100%;
+    height: 524px;
+    top: 400px;
+  
+    & .pic1 {
+      position: absolute;
+      left: 5.49%;
+      right: 45.9%;
+      top: 11.8%;
+      bottom: 11.8%;
+
+      background: url("/public/images/pic1.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+
+      border: 3px solid $secondary;
+      box-sizing: border-box;
+      box-shadow: -4px -4px 4px rgba($tertiary, 0.25), 4px 4px 4px rgba($tertiary, 0.25);
+      border-radius: 3px;
+    }
+
+    & .info {
+      top: 25.4753%;
+      bottom: 25.4752%;
+      right: 5.2083%;
+    }
+
+    & .hook {
+      @extend %text-shared;
+
+      color: $secondary;
+      font-size: 1.3rem;
+      text-shadow: 0px 4px 4px rgba($tertiary, 0.25);
+
+      position: absolute;
+      left: 64.51%;
+      right: 10.49%;
+      top: 22.19%;
+      bottom: 65.84%;
+    }
+
+    & .line {
+      position: absolute;
+      left: 67.75%;
+      right: 13.87%;
+      top: 36.26%;
+      bottom: 63.74%;
+
+      border: 1px solid $secondary;
+    }
+
+    & .info {
+      position: absolute;
+      left: 59.17%;
+      right: 5.21%;
+      top: 39.5%;
+      bottom: 25.57%;
+
+      & .text-secondary-color {
+        text-align: left;
+      }
+    }
+  }
+}
+
+.text {
+  @extend %text-shared;
+}
+
+.text-secondary-color {
+  @extend %text-shared;
+
+  color: $secondary;
+
+  &:hover {
+    color: $secondary; }
+}
+
+.text-tertiary-color {
+  @extend %text-shared;
+
+  color: $tertiary;
+
+   &:hover {
+    color: $tertiary; }
+}
+
+.main {
+  position: absolute;
+  width: 100%;
+  height: 924px;
+  left: 0px;
+  top: 100px;
 }

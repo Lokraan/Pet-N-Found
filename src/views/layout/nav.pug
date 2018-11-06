@@ -1,13 +1,17 @@
-mixin nav(direction, hover_color)
-  nav(class="menu")
-    ul(class!=direction)
-      li(class="menu-item")
-        a(class="menu-link" href="/register") Register
-      li(class="menu-item")
-        a(class="menu-link" href="/login") Login
-      li(class="menu-item")
-        a(class="menu-link" href="/report") Report
-      li(class="menu-item")
-        a(class="menu-link" href="/map") Map
-      li(class="menu-item")
-        a(class="menu-link" href="/search") Search
+mixin nav
+  nav(class="navbar")
+    a(class="brand" href="/")
+      div(class="logo")
+      div(class="description")
+        span Pet 'N Found
+
+    ul(class="tabs")
+      li(class="tab search")
+        a(class="link search-icon" href="/search")
+          span(class="material-icons") search
+      li(class="tab report")
+        a(class="link" href="/report") Report
+      li(class="tab map")
+        a(class="link" href="/map") Map
+      li(class="tab sign-in")
+        a(class="link" href="/register") Sign In

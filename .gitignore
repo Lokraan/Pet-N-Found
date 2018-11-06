@@ -1,4 +1,4 @@
 node_modules
-src/vendor
+public/css/vendor
 package-lock.json
 website

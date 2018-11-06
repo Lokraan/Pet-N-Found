@@ -1,12 +1,21 @@
 extends layout/app.pug
 
 block content
-   center
-     h1 A better way to find pets 
-     p At Pet 'N Found, our mission is to help you locate your lost pets quickly, intuitively, and efficiently.
+  div(class="main")
+    h1(class="hook") A better way to find pets
+    div(class="line")
 
-     img(width:80% src='/public/images/pic1.jpg' class="mySlides")
-     h1 Providing comfort in times of need
-     p At Pet 'N Found, we provide an extensive platform for our users to locate their pets.
-     p Just simply report a lost pet from a location, and members of the Pet 'N Found community will begin searching.
-     
+    div(class="more-info")
+      p(class="text-tertiary-color") At Pet 'N Found, our mission is to help you locate your lost pets quickly, intuitively, and efficiently.
+
+    a(class="get-started-btn text-tertiary-color" href="/register") Get Started
+
+  div(class="secondary")
+    div(class="pic1")
+
+    h1(class="hook") Providing comfort
+    div(class="line")
+
+    div(class="info")
+      p(class="text-secondary-color") At Pet 'N Found, we provide an extensive platform for our users to  locate their pets.
+      p(class="text-secondary-color") Just simply report a lost pet from a location, and members of the Pet 'N Found community will begin searching.

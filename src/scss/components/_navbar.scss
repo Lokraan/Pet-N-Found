@@ -1,0 +1,123 @@
+@import "../themes/_default.scss";
+
+.navbar {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0%;
+  bottom: 90.23%;
+  height: $navbar-height;
+  background: $primary;
+  box-shadow: 0px 4px 4px rgba($tertiary, 0.25);
+  border-radius: 0px !important;
+
+  .brand {
+    list-style: none;
+    left: 3.89%;
+    right: 70.21%;
+    top: 5%;
+    bottom: 5%;
+
+    & .logo {
+      position: absolute;
+      left: 3.89%;
+      right: 91.67%;
+      top: 5%;
+      bottom: 5%;
+
+      background: url("/public/images/logoDog.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+    }
+
+    & .description {
+      position: absolute;
+      left: 10.35%;
+      top: 38%;
+      bottom: 25%;
+      width: auto;
+
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: bold;
+      line-height: normal;
+      font-size: 1.3rem;
+
+      color: $secondary;
+
+      text-shadow: 0px 4px 4px rgba($tertiary, 0.25);
+      object-fit: fill;
+    }
+  }
+
+  .tabs {
+    list-style: none;
+    float: right;
+
+    left: 73.54%;
+    right: 5.21%;
+    top: 38%;
+    bottom: 25%;
+
+    & .tab {
+      & .link {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        line-height: normal;
+        font-size: 1rem;
+
+        color: $secondary;
+        
+        text-shadow: 0px 4px 4px rgba($tertiary, 0.25);
+        
+        &:hover {
+          transition-delay: .5s ease-in-out;
+          box-shadow: 0px 8px 8px rgba($tertiary, 0.25);
+        }
+
+        &:active {
+          transition-delay: .5s ease-in-out;
+          box-shadow: 0px 8px 8px rgba($tertiary, 0.25);
+        }
+      }
+    }
+
+    & .search {
+      position: absolute;
+      left: 69.72%;
+      right: 28.33%;
+      top: 43%;
+      bottom: 29%;
+
+      & .icon {
+        color: $secondary;
+      }
+    }
+
+    & .report {
+      position: absolute;
+      left: 73.5%;
+      right: 18%;
+      top: 38%;
+      bottom: 25%;
+    }
+
+    & .map {
+      position: absolute;
+      left: 81.88%;
+      right: 13.61%;
+      top: 38%;
+      bottom: 25%;
+    }
+
+    & .sign-in {
+      position: absolute;
+      left: 87.92%;
+      right: 0%;
+      top: 38%;
+      bottom: 25%;
+    }
+  }
+}
