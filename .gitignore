@@ -1,3 +1,5 @@
 node_modules
 package-lock.json
 website
+*.sublime-project
+*.sublime-workspace
