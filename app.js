@@ -50,7 +50,3 @@ io.on('connection', socket => {
       console.log(`Client Disconnected (${cons})`);
    });
 });
-
-module.exports = {
-   reports: []
-};
