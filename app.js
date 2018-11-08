@@ -49,6 +49,15 @@ io.on('connection', socket => {
       cons--;
       console.log(`Client Disconnected (${cons})`);
    });
+
+   socket.on('get_report', (id) => {
+      LostReports.findOne({
+         where: {
+            uuid: id
+      }}).then((report) => {
+         socket.emit("report", report);
+      });
+   })
 });
 
 module.exports = {

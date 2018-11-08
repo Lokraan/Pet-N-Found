@@ -4,6 +4,26 @@ const MAX_ZOOM = 18;
 const DEFAULT_LATITUDE = 50;
 const DEFAULT_LONGITUDE = -100;
 
+function degreesToRadians(degrees) {
+  return degrees * Math.PI / 180;
+}
+
+function distanceInMilesBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
+  var earthRadiusMile = 3959;
+
+  var dLat = degreesToRadians(lat2-lat1);
+  var dLon = degreesToRadians(lon2-lon1);
+
+  lat1 = degreesToRadians(lat1);
+  lat2 = degreesToRadians(lat2);
+
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  return earthRadiusMile * c;
+}
+
 $(document).ready(() => {
    $('#petmap').css('height', window.innerHeight + 'px');
    const petmap = L.map('petmap', {
@@ -14,18 +34,15 @@ $(document).ready(() => {
    let zoom = DEFAULT_ZOOM;
    let lat = DEFAULT_LATITUDE;
    let lon = DEFAULT_LONGITUDE;
-   if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(pos => {
-         lat = pos.coords.latitude;
-         lon = pos.coords.longitude;
-         petmap.setView([lat, lon], zoom);
-      }, () => {
-         petmap.setView([lat, lon], zoom);
-         console.error('Failed: navigator.geolocation.getCurrentPosition()');
-      });
-   } else {
+   $.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+      lat = data.geobyteslatitude;
+      lon = data.geobyteslongitude;
+
       petmap.setView([lat, lon], zoom);
-   }
+   }, () => {
+      petmap.setView([lat, lon], zoom);
+   });
+
    // console.log([lat, lon]); // Bug: variables 'lat' and 'lon' do not hold their values set in the getCurrentPosition callback, this log prints [50, -100]; Currently, this bug is mitigated by placing setView inside the callback with another in the else statement
 
    const streets = L.tileLayer(
@@ -46,7 +63,7 @@ $(document).ready(() => {
 
       reports.forEach((report) => {
          const marker = L.marker([report.latitude, report.longitude], {
-            title: report.name,
+            title: report.uuid,
             keyboard: false,
             riseOnHover: true
          });
@@ -56,7 +73,24 @@ $(document).ready(() => {
             | Description: ${report.description} | Email: ${report.email} 
             | Phone: ${report.phone}`
          );
-         marker.addTo(petmap);
+
+         marker.addTo(petmap).on("click", (event) => {
+            const reportId = event.target.options.title;
+
+            socket.emit("get_report", reportId);
+         });
       });
+   });
+
+   socket.on("report", (report) => {
+      $("#report-title").text(`Name: ${report.name}`);
+
+      console.log(report);
+      const distance = distanceInMilesBetweenEarthCoordinates(
+         lat, lon, report.latitude, report.longitude);
+      $("#report-distance").text(`Distance: ${distance.toFixed(1)} miles`);
+
+      $("#report-description").text(report.description);
+      sidebar.open();
    });
 });
