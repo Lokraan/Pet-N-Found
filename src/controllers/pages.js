@@ -32,22 +32,33 @@ router.get("/report", (req, res) => {
   }
 });
 
-router.get("/submit", (req, res, next) => {
+router.get("/report/submit", (req, res, next) => {
   const q = req.query;
 
-  mapQuest.getLatitudeLongitudeFromAddress(q.location, (err, coords) => {
-    LostReport.create({
-      name: q.name,
-      species: q.species,
-      address: q.location,
-      latitude: coords.lat,
-      longitude: coords.lng,
-      description: q.description,
-      userUuid: req.session.userId
-    }).then(() => {
-      return res.redirect("/");
-    });
-  });
+  if (req.session && req.session.userId) {
+    User.findOne({
+      where: {
+        uuid: req.session.userId
+    }}).then((user) => {
+      if(user.uuid == req.session.userId)  {
+        mapQuest.getLatitudeLongitudeFromAddress(q.location, (err, coords) => {
+          LostReport.create({
+            name: q.name,
+            species: q.species,
+            address: q.location,
+            latitude: coords.lat,
+            longitude: coords.lng,
+            description: q.description,
+            userUuid: req.session.userId
+          }).then(() => {
+            return res.redirect("/");
+          });
+        });
+      } else
+        return res.redirect("/login");
+    })
+  } else
+    return res.redirect("/login");
 });
 
 router.get("/login", (req, res) => {

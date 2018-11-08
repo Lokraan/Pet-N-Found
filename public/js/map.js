@@ -84,11 +84,13 @@ $(document).ready(() => {
 
    socket.on("report", (report) => {
       $("#report-title").text(`Name: ${report.name}`);
-
-      console.log(report);
+      
       const distance = distanceInMilesBetweenEarthCoordinates(
          lat, lon, report.latitude, report.longitude);
       $("#report-distance").text(`Distance: ${distance.toFixed(1)} miles`);
+
+      $("#report-author").text(`Author: ${report.user.username}`);
+      $("#report-author").attr("href", `/user/${report.user.username}`);
 
       $("#report-description").text(report.description);
       sidebar.open();

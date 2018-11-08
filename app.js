@@ -30,6 +30,8 @@ let socketio = require('socket.io');
 let io = socketio(server);
 
 const LostReports = require("./src/models/lostReport");
+const User = require("./src/models/user");
+
 // Sockets
 let cons = 0;
 io.on('connection', socket => {
@@ -55,7 +57,13 @@ io.on('connection', socket => {
          where: {
             uuid: id
       }}).then((report) => {
-         socket.emit("report", report);
+         User.findOne({
+            where: {
+               uuid: report.userUuid
+         }}).then((user) => {
+            report.dataValues.user = user.dataValues;
+            socket.emit("report", report);
+         });
       });
    })
 });
