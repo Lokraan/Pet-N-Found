@@ -9,6 +9,7 @@ $(document).ready(() => {
    const petmap = L.map('petmap', {
       worldCopyJump: true // "the map tracks when you pan to another "copy" of the world and seamlessly jumps to the original one so that all overlays like markers and vector layers are still visible"
    });
+   const sidebar = L.control.sidebar('sidebar').addTo(petmap);
 
    let zoom = DEFAULT_ZOOM;
    let lat = DEFAULT_LATITUDE;
@@ -19,13 +20,13 @@ $(document).ready(() => {
          lon = pos.coords.longitude;
          petmap.setView([lat, lon], zoom);
       }, () => {
+         petmap.setView([lat, lon], zoom);
          console.error('Failed: navigator.geolocation.getCurrentPosition()');
       });
    } else {
       petmap.setView([lat, lon], zoom);
    }
    // console.log([lat, lon]); // Bug: variables 'lat' and 'lon' do not hold their values set in the getCurrentPosition callback, this log prints [50, -100]; Currently, this bug is mitigated by placing setView inside the callback with another in the else statement
-
 
    const streets = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
