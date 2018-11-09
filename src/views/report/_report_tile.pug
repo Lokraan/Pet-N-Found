@@ -1,0 +1,16 @@
+mixin report_tile(image, username, title, animal_type, animal_attrs, animal_location)
+  div(class="report-tile")
+    center
+      ul(class="icons")
+        a(class="icon material-icons" href="/") share
+        a(class="icon material-icons" href="/user/"+username+"/message") message
+
+    center
+      img(class="image" src=image)
+
+    div(class="report-info")
+      div(class="report-title")=title
+      div(class="info animal-type")=animal_type
+      if(animal_attrs)
+        div(class="info animal-attrs")=animal_attrs
+      div(class="info animal-location")=animal_location

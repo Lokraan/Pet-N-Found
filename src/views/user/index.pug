@@ -1,9 +1,20 @@
 extends ../layout/app.pug
 
-include _report_tile.pug
+include ../report/_report_tile.pug
 
 block content
-  center
-    h1=user.username
-    each report in user.lostReports
-      +report_tile(report)
+  div(class="user-info")
+    div(class="username")=user.username
+    a(href="/user/" + user.username + "/message")
+      ul(class="message")
+        li(class="material-icons") message
+        li(class="info") Message
+
+  div(class="reports")
+    h1(class="reports-title")="Reports from " + user.username
+
+    div(class="report-tiles")
+      center 
+        each report in user.lostReports
+          +report_tile("/public/images/report-default.png", user.username, report.name, 
+            report.species, "", report.address)

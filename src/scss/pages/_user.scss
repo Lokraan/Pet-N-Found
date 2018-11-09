@@ -1,0 +1,46 @@
+.user-info {
+  height: 150px;
+  width: 100%;
+
+  background: $secondary;
+
+  a {
+    text-decoration: none;
+  }
+
+  & .username {
+    padding-left: 2rem;
+    font-size: 1.22rem;
+    
+    color: $primary;
+  }
+
+  & .message {
+    padding-left: 2.5rem;
+
+    list-style: none;
+
+    & li {
+      display: inline-block;
+      margin-right: 0.25rem;
+    }
+
+    & .info {
+      color: $primary;
+      font-size: 1rem;
+    }
+  }
+}
+
+.reports {
+  width: 100%;
+  height: 100%;
+
+  background: darken($secondary, 10%);
+
+  & .reports-title {
+    text-align: center;
+    padding-top: 1rem;
+    margin: 1.5rem 0 1.5rem 0;
+  }
+}

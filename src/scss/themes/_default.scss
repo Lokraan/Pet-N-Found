@@ -32,3 +32,14 @@ a {
 .fluid-container {
   border-radius: 0px;
 }
+
+%text-shared {
+  font-family: Lora;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  text-align: center;
+
+  text-shadow: 0px 4px 4px rgba($tertiary, 0.25);
+}
+
