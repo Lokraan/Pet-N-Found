@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const LostReport = require("../models/lostReport");
 const { MapQuest }= require("../helpers/geolocation");
+const upload = require("../helpers/fileStorage");
 
 const router = express.Router();
 const mapQuest = new MapQuest("PVNakNDJNXGyp5NZGmmcVz4DZsvMz2mO");
@@ -12,10 +13,10 @@ function returnUserFromSession(session, callback) {
   if(session && session.userId) {
     User.findOne({
       where: {
-        uuid: req.session.userId
+        uuid: session.userId
     }}).then((user) => {
       return callback(user);
-    }
+    });
   } else {
     return callback(null);
   }
@@ -30,19 +31,19 @@ router.get("/map", (req, res) => {
 });
 
 router.get("/report", (req, res) => {
-  returnUserFromSession(req.session, res => {
-    if(res != null)
+  returnUserFromSession(req.session, user => {
+    if(user != null)
       return res.render("report/index", {title: "Pet n Found"});
     else 
       return res.redirect("/login");
   });
 });
 
-router.get("/report/submit", (req, res, next) => {
-  const q = req.query;
+router.post("/report/submit", upload.single("image"), (req, res, next) => {
+  const q = req.body;
 
-  returnUserFromSession(session, res => {
-    if(res != null) {
+  returnUserFromSession(req.session, user => {
+    if(user != null) {
       mapQuest.getLatitudeLongitudeFromAddress(q.location, (err, coords) => {
         LostReport.create({
           name: q.name,
@@ -55,7 +56,7 @@ router.get("/report/submit", (req, res, next) => {
         }).then(() => {
           return res.redirect("/");
         });
-      }
+      })
     } else {
       return res.redirect("/login");
     }

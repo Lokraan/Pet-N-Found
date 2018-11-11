@@ -5,7 +5,7 @@ block content
   link(rel="stylesheet", src="/public/css/report.css") 
 
   h1 Submit a Found Pet Report
-  form(action="/report/submit" class="report border rounded")
+  form(action="/report/submit" class="report border rounded" method="post" enctype="multipart/form-data")
     div(class="form-group")
       label(for="location") Location where the pet was found
       input(type="text" class="form-control" name="location" placeholder="Enter location")
@@ -24,6 +24,6 @@ block content
 
     div(class="form-group")
       label(class="custom-file") Image
-      input(type="file" name="file" class="form-control-file")
+      input(type="file" name="image" class="form-control-file")
 
     button(type="submit" class="btn btn-primary") Submit

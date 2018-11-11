@@ -1,4 +1,6 @@
 node_modules
 public/css/vendor
+public/css/reportImages/!*.md
+public/css/reportImages/*.*
 package-lock.json
 website
