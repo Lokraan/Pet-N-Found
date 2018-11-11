@@ -8,6 +8,19 @@ const { MapQuest }= require("../helpers/geolocation");
 const router = express.Router();
 const mapQuest = new MapQuest("PVNakNDJNXGyp5NZGmmcVz4DZsvMz2mO");
 
+function returnUserFromSession(session, callback) {
+  if(session && session.userId) {
+    User.findOne({
+      where: {
+        uuid: req.session.userId
+    }}).then((user) => {
+      return callback(user);
+    }
+  } else {
+    return callback(null);
+  }
+}
+
 router.get("/", (req, res) => {
   res.render("index", {title: "Pet n Found"});
 });
@@ -17,48 +30,36 @@ router.get("/map", (req, res) => {
 });
 
 router.get("/report", (req, res) => {
-  if (req.session && req.session.userId) {
-    User.findOne({
-      where: {
-        uuid: req.session.userId
-    }}).then((user) => {
-      if(user.uuid == req.session.userId) 
-        return res.render("report/index", {title: "Pet n Found"});
-      else
-        return res.redirect("/login");
-    })
-  } else {
-    return res.redirect("/login");
-  }
+  returnUserFromSession(req.session, res => {
+    if(res != null)
+      return res.render("report/index", {title: "Pet n Found"});
+    else 
+      return res.redirect("/login");
+  });
 });
 
 router.get("/report/submit", (req, res, next) => {
   const q = req.query;
 
-  if (req.session && req.session.userId) {
-    User.findOne({
-      where: {
-        uuid: req.session.userId
-    }}).then((user) => {
-      if(user.uuid == req.session.userId)  {
-        mapQuest.getLatitudeLongitudeFromAddress(q.location, (err, coords) => {
-          LostReport.create({
-            name: q.name,
-            species: q.species,
-            address: q.location,
-            latitude: coords.lat,
-            longitude: coords.lng,
-            description: q.description,
-            userUuid: req.session.userId
-          }).then(() => {
-            return res.redirect("/");
-          });
+  returnUserFromSession(session, res => {
+    if(res != null) {
+      mapQuest.getLatitudeLongitudeFromAddress(q.location, (err, coords) => {
+        LostReport.create({
+          name: q.name,
+          species: q.species,
+          address: q.location,
+          latitude: coords.lat,
+          longitude: coords.lng,
+          description: q.description,
+          userUuid: req.session.userId
+        }).then(() => {
+          return res.redirect("/");
         });
-      } else
-        return res.redirect("/login");
-    })
-  } else
-    return res.redirect("/login");
+      }
+    } else {
+      return res.redirect("/login");
+    }
+  });
 });
 
 router.get("/login", (req, res) => {
