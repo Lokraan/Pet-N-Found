@@ -26,6 +26,10 @@ const LostReport = sequelize.define("lost_report", {
     description: {
       type: Sequelize.TEXT
     },
+    imageFileName: {
+      type: Sequelize.TEXT,
+      allowNull: false
+    },
     uuid: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,

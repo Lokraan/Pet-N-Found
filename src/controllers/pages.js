@@ -42,6 +42,9 @@ router.get("/report", (req, res) => {
 router.post("/report/submit", upload.single("image"), (req, res, next) => {
   const q = req.body;
 
+  let fName = "report_default.png";
+  if(req.file) fName = req.file.filename;
+
   returnUserFromSession(req.session, user => {
     if(user != null) {
       mapQuest.getLatitudeLongitudeFromAddress(q.location, (err, coords) => {
@@ -52,6 +55,7 @@ router.post("/report/submit", upload.single("image"), (req, res, next) => {
           latitude: coords.lat,
           longitude: coords.lng,
           description: q.description,
+          imageFileName: fName,
           userUuid: req.session.userId
         }).then(() => {
           return res.redirect("/");
