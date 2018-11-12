@@ -83,8 +83,12 @@ $(document).ready(() => {
    });
 
    socket.on("report", (report) => {
+      $("#report-image").attr("src", 
+         `/public/images/reportImages/${report.imageFileName}`);
+
       $("#report-title").text(`Name: ${report.name}`);
-      
+       
+      console.log(report); 
       const distance = distanceInMilesBetweenEarthCoordinates(
          lat, lon, report.latitude, report.longitude);
       $("#report-distance").text(`Distance: ${distance.toFixed(1)} miles`);

@@ -16,5 +16,5 @@ block content
     div(class="report-tiles")
       center 
         each report in user.lostReports
-          +report_tile("/public/images/report-default.png", user.username, report.name, 
-            report.species, "", report.address)
+          +report_tile(`/public/images/reportImages/${report.imageFileName}`, 
+            user.username, report.name, report.species, "", report.address)
