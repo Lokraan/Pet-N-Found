@@ -1,7 +1,10 @@
 const express = require('express');
 const bcrypt = require("bcrypt");
+const Sequelize = require("sequelize");
 
 const User = require("../models/user");
+const Chat = require("../models/chat");
+const Message = require("../models/message");
 const LostReport = require("../models/lostReport");
 const { MapQuest }= require("../helpers/geolocation");
 const upload = require("../helpers/fileStorage");
@@ -107,6 +110,45 @@ router.post("/login/process", (req, res, next) => {
 
 router.get("/register", (req, res) => {
   res.render("register/index", {title: "Register - Pet n Found"})
+});
+
+router.get("/message/:username", (req, res) => {
+  const username = req.params.username;
+
+  returnUserFromSession(req.session, user1 => {
+    if(user1) {
+      User.findOne({
+        where: {
+          username: username
+        }
+      }).then(user2 => {
+        Chat.findAll({
+          order: [
+            [{model: Message, as: "messages"}, "createdAt", "DESC"]
+          ],
+          include: [{
+            model: User,
+            where: { 
+              [Sequelize.Op.or]: [{uuid: user1.uuid}, {uuid: user2.uuid}] 
+            },
+            as: "users",
+          },
+          {
+            model: Message,
+            as: "messages",
+            order: [
+              ["createdAt", "DESC"]
+            ]
+          }
+          ]
+        }).then(chats => {
+          res.render("message/index", {chats: chats});
+        });
+      });
+    } else {
+      res.redirect("/login");
+    }
+  });
 });
 
 router.post("/register/process", (req, res, next) => {

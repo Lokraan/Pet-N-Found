@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const crypto = require("crypto");
 
 const sequelize = require("../db");
 
@@ -16,33 +15,14 @@ const Message = sequelize.define("message", {
         key: "uuid"
       }
     },
-    receiver: {
+    uuid: {
       type: Sequelize.UUID,
-      allowNull: false,
-      references: {
-        model: "user",
-        key: "uuid"
-      }
-    }, 
-    id: {
-      type: Sequelize.INTEGER,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true
     }
   }, {
     tableName: "messages",
-    timestamps: true,
-    hooks: {
-      beforeCreate: (msg, options) => {
-        const id = crypto.createHash("sha256").
-          update(msg.author).
-          update(msg.receiver).
-          update(Date.now()).
-          update(content).
-          digest("base64");
-
-        msg.id = id;
-      }
-    }
+    timestamps: true
   }
 );
 

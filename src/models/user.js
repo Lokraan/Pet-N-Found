@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../db");
 const LostReport = require("./lostReport");
-const Message = require("./message");
+const Chat = require("./message");
 
 const User = sequelize.define("user", {
     email: {
@@ -31,6 +31,6 @@ const User = sequelize.define("user", {
 );
 
 User.hasMany(LostReport, {as: "lost_reports"});
-User.hasMany(Message, {as: "messages"});
+User.hasMany(Chat, {as: "chats"});
 
 module.exports = User;
