@@ -14,4 +14,12 @@ const storage = multer.diskStorage({
   }
 });
 
-module.exports = multer({storage: storage});
+const imageFilter = function (req, file, cb) {
+    // accept image only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+
+module.exports = multer({storage: storage, fileFilter: imageFilter});
